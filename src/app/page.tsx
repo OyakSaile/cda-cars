@@ -2,10 +2,24 @@
 
 import { Inter } from "next/font/google";
 import { Car } from "@phosphor-icons/react";
+import { InputText } from "@/components/inputText";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [carName, setCarName] = useState("");
+  const [acceleration, setAcceleration] = useState("");
+  const [topSpeed, setTopSpeed] = useState("");
+  const [topSpeedWithBump, setTopSpeedWithBump] = useState("");
+
+  const handleBalanceCar = () => {
+    toast(
+      `Nome do Carro ${carName}, <br/> Aceleração : ${acceleration}, Top Speed : ${topSpeed}, Top Speed com Ondulação : ${topSpeedWithBump}`
+    );
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm flex justify-center items-center flex-col">
@@ -16,78 +30,38 @@ export default function Home() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <div className="space-y-6">
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Nome do carro
-            </label>
-            <div className="mt-2">
-              <input
-                id="carName"
-                name="carName"
-                type="carName"
-                placeholder="Ex: Calico"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 pl-5 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
+            <InputText
+              label="Nome do Carro"
+              placeholder="Ex: Calico"
+              value={carName}
+              onChange={(e) => setCarName(e.target.value)}
+            />
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Top Speed
-            </label>
-            <div className="mt-2">
-              <input
-                id="topSpeed"
-                name="topSpeed"
-                type="topSpeed"
-                placeholder="Ex: 270"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 pl-5 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
+            <InputText
+              label="Aceleração (0-100KM) em Segundos"
+              placeholder="Ex: 5"
+              value={acceleration}
+              onChange={(e) => setAcceleration(e.target.value)}
+            />
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Top Speed com Ondulação
-            </label>
-            <div className="mt-2">
-              <input
-                id="topSpeed"
-                name="topSpeed"
-                type="topSpeed"
-                placeholder="Ex: 270"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 pl-5 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
+            <InputText
+              label="Top Speed"
+              placeholder="Ex: 250"
+              value={topSpeed}
+              onChange={(e) => setTopSpeed(e.target.value)}
+            />
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Aceleração 0-100KM (Segundos)
-            </label>
-            <div className="mt-2">
-              <input
-                id="topSpeed"
-                name="topSpeed"
-                type="topSpeed"
-                placeholder="Ex: 5"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 pl-5 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
+            <InputText
+              label="Top Speed com ondulação"
+              placeholder="Ex: 300"
+              value={topSpeedWithBump}
+              onChange={(e) => setTopSpeedWithBump(e.target.value)}
+            />
           </div>
 
           <div>
@@ -192,11 +166,12 @@ export default function Home() {
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleBalanceCar}
             >
               Balancear
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
